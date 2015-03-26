@@ -12,6 +12,10 @@
 		font-size: 18px;
 	}
 
+	#cursor {
+		text-decoration: blink;
+	}
+
 	.ascii {
 		white-space: pre;
 		font-size: 17px;
@@ -30,109 +34,135 @@
 	}
 	</style>
 
+	<script type="text/javascript">
+
+var currentChar = 1;
+var textSpeed = 70;
+var creditsText = "Forms FORM-29827281-12:\n\
+Test Assessment Report\n\
+\n\n\n\
+This was a triumph.\n$100\
+I'm making a note here:\n\
+HUGE SUCCESS.\n\
+It's hard to overstate\n\
+my satisfaction.\n\
+Aperture Science\n\
+We do what we must\n\
+because we can.\n\
+For the good of all of us.\n\
+Except the ones who are dead.\n\
+\n\
+But there's no sense crying\n\
+over every mistake.\n\
+You just keep on trying\n\
+till you run out of cake.\n\
+And the Science gets done.\n\
+And you make a neat gun.\n\
+For the people who are\n\
+still alive.\n\
+\n\
+#\
+\n\
+Forms FORM-55551-5:\n\
+Personnel File Addendum:\n\
+\n\
+Dear <<Subject Name Here>>,\n\
+\n\
+I'm not even angry.\n\
+I'm being so sincere right now.\n\
+Even though you broke my heart.\n\
+And killed me.\n\
+And tore me to pieces.\n\
+And threw every piece into a fire.\n\
+As they burned it hurt because\n\
+I was so happy for you!\n\
+Now these points of data\n\
+make a beautiful line.\n\
+And we're out of beta.\n\
+We're releasing on time.\n\
+So I'm GLaD. I got burned.\n\
+Think of all the things we learned\n\
+for the people who are\n\
+still alive.\n\
+\n\
+#\
+\n\
+Forms FORM-55551-6:\n\
+Personnel File Addendum Addendum:\n\
+\n\
+One last thing:\n\
+\n\
+Go ahead and leave me.\n\
+I think I prefer to stay inside.\n\
+Maybe you'll find someone else\n\
+to help you.\n\
+Maybe Black Mesa...\n\
+THAT WAS A JOKE. HA HA. FAT CHANCE.\n\
+Anyway, this cake is great.\n\
+It's so delicious and moist.\n\
+Look at me still talking\n\
+when there's Science to do.\n\
+When I look out there,\n\
+it makes me GLaD I'm not you.\n\
+I've experiments to run.\n\
+There is research to be done.\n\
+On the people who are\n\
+still alive.\n\
+\n\
+PS: And believe me I am\n\
+still alive.\n\
+PPS: I'm doing Science and I'm\n\
+still alive.\n\
+PPPS: I feel FANTASTIC and I'm\n\
+still alive.\n\
+\n\
+FINAL THOUGHT:\n\
+While you're dying I'll be\n\
+still alive.\n\
+\n\
+FINAL THOUGHT PS:\n\
+And when you're dead I will be\n\
+still alive.\n\
+\n\
+STILL ALIVE\n\
+\n\
+#\
+\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
+                     Still alive."
+
+
+function typewrite() {
+	if (currentChar >= creditsText.length)
+		return;
+
+	var c = creditsText.charAt(currentChar - 1, currentChar++);
+
+	if (c == '#')
+		document.getElementById("main_scroll").innerHTML = "";
+	else
+		document.getElementById("main_scroll").innerHTML += c;
+
+	setTimeout("typewrite()", textSpeed);
+}
+
+function init() {
+	var bgMusic = document.getElementById("bgMusic");
+
+	setTimeout("bgMusic.play()", 3000);
+
+	typewrite();
+}
+
+window.onload = init;
+	</script>
 </head>
 
 <body>
-	<audio autoplay><source src="still_alive.mp3" /></audio>
+	<audio id="bgMusic">
+		<source src="still_alive.mp3" />
+	</audio>
 
-	<div id="main_scroll">
-Forms FORM-29827281-12:
-Test Assessment Report
-
-
-
-This was a triumph.
-I'm making a note here:
-HUGE SUCCESS.
-It's hard to overstate
-my satisfaction.
-Aperture Science
-We do what we must
-because we can.
-For the good of all of us.
-Except the ones who are dead.
-
-But there's no sense crying
-over every mistake.
-You just keep on trying
-till you run out of cake.
-And the Science gets done.
-And you make a neat gun.
-For the people who are
-still alive.
-
-
-
-
-
-
-
-Forms FORM-55551-5:
-Personnel File Addendum:
-
-Dear <<Subject Name Here>>,
-
-I'm not even angry.
-I'm being so sincere right now.
-Even though you broke my heart.
-And killed me.
-And tore me to pieces.
-And threw every piece into a fire.
-As they burned it hurt because
-I was so happy for you!
-Now these points of data
-make a beautiful line.
-And we're out of beta.
-We're releasing on time.
-So I'm GLaD. I got burned.
-Think of all the things we learned
-for the people who are
-still alive.
-
-
-
-
-Forms FORM-55551-6:
-Personnel File Addendum Addendum:
-
-One last thing:
-
-Go ahead and leave me.
-I think I prefer to stay inside.
-Maybe you'll find someone else
-to help you.
-Maybe Black Mesa...
-THAT WAS A JOKE. HA HA. FAT CHANCE.
-Anyway, this cake is great.
-It's so delicious and moist.
-Look at me still talking
-when there's Science to do.
-When I look out there,
-it makes me GLaD I'm not you.
-I've experiments to run.
-There is research to be done.
-On the people who are
-still alive.
-
-PS: And believe me I am
-still alive.
-PPS: I'm doing Science and I'm
-still alive.
-PPPS: I feel FANTASTIC and I'm
-still alive.
-
-FINAL THOUGHT:
-While you're dying I'll be
-still alive.
-
-FINAL THOUGHT PS:
-And when you're dead I will be
-still alive.
-
-STILL ALIVE
-
-Still alive.
-	</div>
+	<div id="main_scroll"></div>
 
 <div class="ascii">
                  =/;;/-
