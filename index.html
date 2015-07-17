@@ -41,16 +41,16 @@ var textSpeed = 70;
 var creditsText = "Forms FORM-29827281-12:\n\
 Test Assessment Report\n\
 \n\n\n\
-This was a triumph.\n$100\
-I'm making a note here:\n\
-HUGE SUCCESS.\n\
-It's hard to overstate\n\
-my satisfaction.\n\
-Aperture Science\n\
-We do what we must\n\
-because we can.\n\
-For the good of all of us.\n\
-Except the ones who are dead.\n\
+This was a triumph.\n^2200^\
+$50$I'm making a note here:^500^\n\
+HUGE SUCCESS.^2500^\n\
+It's hard to $100$overstate\n\
+my $170$satisfaction.^2300^$50$\n\
+Aperture Science^2300^\n\
+We do what we must^700^\n\
+because^400^ we can.^2000^\n\
+$120$For the good of all of us.^70^\n\
+$50$Except the ones who are dead.\n\
 \n\
 But there's no sense crying\n\
 over every mistake.\n\
@@ -132,17 +132,36 @@ STILL ALIVE\n\
 
 
 function typewrite() {
+	var pauseTime = '';
+
 	if (currentChar >= creditsText.length)
 		return;
 
 	var c = creditsText.charAt(currentChar - 1, currentChar++);
 
-	if (c == '#')
+	if (c == '#') // Clear screen
 		document.getElementById("main_scroll").innerHTML = "";
-	else
+	else if (c == '$') { // New Speed
+		var newSpeed = '';
+		do {
+			c = creditsText.charAt(currentChar - 1, currentChar++);
+			if (c != '$')
+				newSpeed += c;
+		} while (c != '$');
+		textSpeed = parseInt(newSpeed);
+	} else if (c == '^') { // Pause
+		do {
+			c = creditsText.charAt(currentChar - 1, currentChar++);
+			if (c != '^')
+				pauseTime += c;
+		} while (c != '^');
+	} else
 		document.getElementById("main_scroll").innerHTML += c;
 
-	setTimeout("typewrite()", textSpeed);
+	if (pauseTime != '')
+		setTimeout("typewrite()", textSpeed + parseInt(pauseTime));
+	else
+		setTimeout("typewrite()", textSpeed);
 }
 
 function init() {
@@ -165,26 +184,26 @@ window.onload = init;
 	<div id="main_scroll"></div>
 
 <div class="ascii">
-                 =/;;/-
-                +:    //
-               /;      /;
-              -X        H.
-.//;;;:;;-,   X=        :+   .-;:=;:;%;.
-M-       ,=;;;#:,      ,:#;;:=,       ,@
-:%           :%.=/++++/=.$=           %=
- ,%;         %/:+/;,,/++:+/         ;+.
-   ,+/.    ,;@+,        ,%H;,    ,/+,
-      ;+;;/= @.  .H##X   -X :///+;
-      ;+=;;;.@,  .XM@$.  =X.//;=%/.
-   ,;:      :@%=        =$H:     .+%-
- ,%=         %;-///==///-//         =%,
-;+           :%-;;;:;;;;-X-           +:
-@-      .-;;;;M-        =M/;;;-.      -X
- :;;::;;-.    %-        :+    ,-;;-;:==
-                  ,X        H.
-               ;/      %=
-                //    +;
-                 ,////,
+	              .,-:;//;:=,
+	          . :H@@@MM@M#H/.,+%;,
+	       ,/X+ +M@@M@MM%=,-%HMMM@X/,
+	     -+@MM; $M@@MH+-,;XMMMM@MMMM@+-
+	    ;@M@@M- XM@X;. -+XXXXXHHH@M@M#@/.
+	  ,%MM@@MH ,@%=            .---=-=:=,.
+	  =@#@@@MX .,              -%HX$$%%%+;
+	 =-./@M@M$                  .;@MMMM@MM:
+	 X@/ -$MM/                    .+MM@@@M$
+	,@M@H: :@:                    . =X#@@@@-
+	,@@@MMX, .                    /H- ;@M@M=
+	.H@@@@M@+,                    %MM+..%#$.
+	 /MMMM@MMH/.                  XM@MH; =;
+	  /%+%$XHH@$=              , .H@@@@MX,
+	   .=--------.           -%H.,@@@@@MX,
+	   .%MM@@@HHHXX$$$%+- .:$MMX =M@@MM%.
+	     =XMMM@MM@MM#H;,-+HMM@M+ /MMMX=
+	       =%@M@M#@$-.=$@MM@@@M; %M%=
+	         ,:+$+-,/H#MMMMMMM@= =,
+	               =++%%%%+/:-.
 </div>
  </body>
 
