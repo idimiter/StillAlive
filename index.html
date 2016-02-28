@@ -16,9 +16,9 @@
 		text-decoration: blink;
 	}
 
-	.ascii {
+	#ascii {
 		white-space: pre;
-		font-size: 17px;
+		font-size: 15px;
 	}
 
 	#main_scroll {
@@ -38,7 +38,200 @@
 
 var currentChar = 1;
 var textSpeed = 70;
-var creditsText = "Forms FORM-29827281-12:\n\
+
+
+var asciiImages = Array(
+"                 =+$HM####@H%;,\n\
+              /H##############M$,\n\
+              ,@################+\n\
+               .H##############+\n\
+                 X############/\n\
+                  $##########/\n\
+                   %########/\n\
+                    /X/;;+X/\n\
+\n\
+                     -XHHX-\n\
+                    ,######,\n\
+    #############X  .M####M.  X#############\n\
+    ##############-   -//-   -##############\n\
+    X##############%,      ,+##############X\n\
+    -##############X        X##############-\n\
+     %############%          %############%\n\
+      %##########;            ;##########%\n\
+       ;#######M=              =M#######;\n\
+        .+M###@,                ,@###M+.\n\
+           :XH.                  .HX:\n",
+
+"	                          .,---.\n\
+	                        ,/XM#MMMX;,\n\
+	                      -%##########M%,\n\
+	                     -@######%  $###@=\n\
+	      .,--,         -H#######$   $###M:\n\
+	   ,;$M###MMX;     .;##########$;HM###X=\n\
+	 ,/@##########H=      ;################+\n\
+	-+#############M/,      %##############+\n\
+	%M###############=      /##############:\n\
+	H################      .M#############;.\n\
+	@###############M      ,@###########M:.\n\
+	X################,      -$=X#######@:\n\
+	/@##################%-     +######$-\n\
+	.;##################X     .X#####+,\n\
+	 .;H################/     -X####+.\n\
+	   ,;X##############,       .MM/\n\
+	      ,:+$H@M#######M#$-    .$$=\n\
+	           .,-=;+$@###X:    ;/=.\n\
+	                  .,/X$;   .::,\n\
+	                      .,    ..\n",
+
+"	                     -$-\n\
+	                    .H##H,\n\
+	                   +######+\n\
+	                .+#########H.\n\
+	              -$############@.\n\
+	            =H###############@  -X:\n\
+	          .$##################:  @#@-\n\
+	     ,:  .M###################;  H###;\n\
+	   ;@#:  @###################@  ,#####:\n\
+	 -M###.  M#################@.  ;######H\n\
+	 M####-  +###############$   =@#######X\n\
+	 H####$   -M###########+   :#########M,\n\
+	  /####X-   =########%   :M########@/.\n\
+	    ,;%H@X;   .$###X   :##MM@%+;:-\n\
+	                 ..\n\
+	  -/;:-,.              ,,-==+M########H\n\
+	 -##################@HX%%+%%$%%%+:,,\n\
+	    .-/H%%%+%%$H@###############M@+=:/+:\n\
+	/XHX%:#####MH%=    ,---:;;;;/%%XHM,:###$\n\
+	$@#MX %+;-                           .	\n",
+
+"	                 =/;;/-\n\
+	                +:    //\n\
+	               /;      /;\n\
+	              -X        H.\n\
+	.//;;;:;;-,   X=        :+   .-;:=;:;%;.\n\
+	M-       ,=;;;#:,      ,:#;;:=,       ,@\n\
+	:%           :%.=/++++/=.$=           %=\n\
+	 ,%;         %/:+/;,,/++:+/         ;+.\n\
+	   ,+/.    ,;@+,        ,%H;,    ,/+,\n\
+	      ;+;;/= @.  .H##X   -X :///+;\n\
+	      ;+=;;;.@,  .XM@$.  =X.//;=%/.\n\
+	   ,;:      :@%=        =$H:     .+%-\n\
+	 ,%=         %;-///==///-//         =%,\n\
+	;+           :%-;;;:;;;;-X-           +:\n\
+	@-      .-;;;;M-        =M/;;;-.      -X\n\
+	 :;;::;;-.    %-        :+    ,-;;-;:==\n\
+	              ,X        H.\n\
+	               ;/      %=\n\
+	                //    +;\n\
+	                 ,////,\n",
+
+"	           .-;+$XHHHHHHX$+;-.\n\
+	        ,;X@@X%/;=----=:/%X@@X/\n\
+	      =$@@%=.              .=+H@X:\n\
+	    -XMX:                      =XMX=\n\
+	   /@@:                          =H@+\n\
+	  %@X,                            .$@$\n\
+	 +@X.                               $@%\n\
+	-@@,                                .@@=\n\
+	%@%                                  +@$\n\
+	H@:                                  :@H\n\
+	H@:         :HHHHHHHHHHHHHHHHHHX,    =@H\n\
+	%@%         ;@M@@@@@@@@@@@@@@@@@H-   +@$\n\
+	=@@,        :@@@@@@@@@@@@@@@@@@@@@= .@@:\n\
+	 +@X        :@@@@@@@@@@@@@@@M@@@@@@:%@%\n\
+	  $@$,      ;@@@@@@@@@@@@@@@@@M@@@@@@$.\n\
+	   +@@HHHHHHH@@@@@@@@@@@@@@@@@@@@@@@+\n\
+	    =X@@@@@@@@@@@@@@@@@@@@@@@@@@@@X=\n\
+	      :$@@@@@@@@@@@@@@@@@@@M@@@@$:\n\
+	        ,;$@@@@@@@@@@@@@@@@@@X/-\n\
+	           .-;+$XXHHHHHX$+;-.\n",
+
+"	            ,:/+/-\n\
+	            /M/              .,-=;//;-\n\
+	       .:/= ;MH/,    ,=/+%$XH@MM#@:\n\
+	      -$##@+$###@H@MMM#######H:.    -/H#\n\
+	 .,H@H@ X######@ -H#####@+-     -+H###@X\n\
+	  .,@##H;      +XM##M/,     =%@###@X;-\n\
+	X%-  :M##########$.    .:%M###@%:\n\
+	M##H,   +H@@@$/-.  ,;$M###@%,          -\n\
+	M####M=,,---,.-%%H####M$:          ,+@##\n\
+	@##################@/.         :%H##@$-\n\
+	M###############H,         ;HM##M$=\n\
+	#################.    .=$M##M$=\n\
+	################H..;XM##M$=          .:+\n\
+	M###################@%=           =+@MH%\n\
+	@################M/.          =+H#X%=\n\
+	=+M##############M,       -/X#X+;.\n\
+	  .;XM##########H=    ,/X#H+:.\n\
+	     ,:/%XM####H/.\n\
+	          ,.:=-.\n",
+
+"	       #+ @      # #              M#@\n\
+	 .    .X  X.%##@;# #   +@#######X. @#%\n\
+	   ,==.   ,######M+  -#####%M####M-    #\n\
+	  :H##M%:=##+ .M##M,;#####/+#######% ,M#\n\
+	 .M########=  -@#@.=#####M=M#######=  X#\n\
+	 :@@MMM##M.  -##M.,#######M#######. =  M\n\
+	             @##..###:.    .H####, @@ X,\n\
+	   ############: ###,/####;  /##= @#. M\n\
+	           ,M## ;##,@#M;/M#M  @# X#% X#\n\
+	.%=   ######M## ##.M#:   ./#M ,M #M ,#$\n\
+	##/         $## #+;#: #### ;#/ M M- @# :\n\
+	#+ #M@MM###M-;M #:$#-##$H# .#X @ + $#. #\n\
+	      ######/.: #%=# M#:MM./#.-#  @#: H#\n\
+	+,.=   @###: /@ %#,@  ##@X #,-#@.##% .@#\n\
+	#####+;/##/ @##  #@,+       /#M    . X,\n\
+	   ;###M#@ M###H .#M-     ,##M  ;@@; ###\n\
+	   .M###%  ;####X ,@#######M/ -M###$  -H\n\
+	    .M###%  X####H  .@@MM@;  ;@#M@\n\
+	      H#M    /@####/      ,++.  / ==-,\n\
+	               ,=/:, .+X@MMH@#H  #####$=\n",
+
+"	            .+\n\
+	             /M;\n\
+	              H#@:              ;,\n\
+	               -###H-          -@/\n\
+	               %####$.  -;  .%#X\n\
+	                M#####+;#H :M#M.\n\
+	..          .+/;%#########X###-\n\
+	 -/%H%+;-,    +##############/\n\
+	    .:$M###MH$%#############X  ,--=;-\n\
+	        -/H#####################H+=.\n\
+	           .+#################X.\n\
+	         =%M####################H;.\n\
+	            /@###############+;;/%%;,\n\
+	         -%###################$.\n\
+	       ;H######################M=\n\
+	    ,%#####MH$%;+#####M###-/@####%\n\
+	  :$H%+;=-      -####X.,H#   -+M##@-\n\
+	 .              ,###;    ;      =$##+\n\
+	                .#H,               :XH,\n\
+	                 +                   .;-\n",
+
+"	              .,-:;//;:=,\n\
+	          . :H@@@MM@M#H/.,+%;,\n\
+	       ,/X+ +M@@M@MM%=,-%HMMM@X/,\n\
+	     -+@MM; $M@@MH+-,;XMMMM@MMMM@+-\n\
+	    ;@M@@M- XM@X;. -+XXXXXHHH@M@M#@/.\n\
+	  ,%MM@@MH ,@%=            .---=-=:=,.\n\
+	  =@#@@@MX .,              -%HX$$%%%+;\n\
+	 =-./@M@M$                  .;@MMMM@MM:\n\
+	 X@/ -$MM/                    .+MM@@@M$\n\
+	,@M@H: :@:                    . =X#@@@@-\n\
+	,@@@MMX, .                    /H- ;@M@M=\n\
+	.H@@@@M@+,                    %MM+..%#$.\n\
+	 /MMMM@MMH/.                  XM@MH; =;\n\
+	  /%+%$XHH@$=              , .H@@@@MX,\n\
+	   .=--------.           -%H.,@@@@@MX,\n\
+	   .%MM@@@HHHXX$$$%+- .:$MMX =M@@MM%.\n\
+	     =XMMM@MM@MM#H;,-+HMM@M+ /MMMX=\n\
+	       =%@M@M#@$-.=$@MM@@@M; %M%=\n\
+	         ,:+$+-,/H#MMMMMMM@= =,\n\
+	               =++%%%%+/:-.\n"
+);
+
+
+var songLyrics = "%3%Forms FORM-29827281-12:\n\
 Test Assessment Report\n\
 \n\n\n\
 This was a triumph.\n^2200^\
@@ -61,7 +254,7 @@ And you make a neat gun.\n\
 For the people who are\n\
 still alive.\n\
 \n\
-#\
+#%1%\
 \n\
 Forms FORM-55551-5:\n\
 Personnel File Addendum:\n\
@@ -85,7 +278,7 @@ Think of all the things we learned\n\
 for the people who are\n\
 still alive.\n\
 \n\
-#\
+#%2%\
 \n\
 Forms FORM-55551-6:\n\
 Personnel File Addendum Addendum:\n\
@@ -108,7 +301,7 @@ I've experiments to run.\n\
 There is research to be done.\n\
 On the people who are\n\
 still alive.\n\
-\n\
+%0%\n\
 PS: And believe me I am\n\
 still alive.\n\
 PPS: I'm doing Science and I'm\n\
@@ -133,28 +326,38 @@ STILL ALIVE\n\
 
 function typewrite() {
 	var pauseTime = '';
+	var asciiIndex = '';
 
-	if (currentChar >= creditsText.length)
+	if (currentChar >= songLyrics.length)
 		return;
 
-	var c = creditsText.charAt(currentChar - 1, currentChar++);
+	var c = songLyrics.charAt(currentChar - 1, currentChar++);
 
 	if (c == '#') // Clear screen
 		document.getElementById("main_scroll").innerHTML = "";
 	else if (c == '$') { // New Speed
 		var newSpeed = '';
 		do {
-			c = creditsText.charAt(currentChar - 1, currentChar++);
+			c = songLyrics.charAt(currentChar - 1, currentChar++);
 			if (c != '$')
 				newSpeed += c;
 		} while (c != '$');
 		textSpeed = parseInt(newSpeed);
 	} else if (c == '^') { // Pause
 		do {
-			c = creditsText.charAt(currentChar - 1, currentChar++);
+			c = songLyrics.charAt(currentChar - 1, currentChar++);
 			if (c != '^')
 				pauseTime += c;
 		} while (c != '^');
+	} else if (c == '%') { // Change asciiArt
+		do {
+			c = songLyrics.charAt(currentChar - 1, currentChar++);
+			if (c != '%')
+				asciiIndex += c;
+		} while (c != '%');
+
+		var asciiLayer = document.getElementById("ascii");
+		asciiLayer.innerText = asciiImages[parseInt(asciiIndex)];
 	} else
 		document.getElementById("main_scroll").innerHTML += c;
 
@@ -166,6 +369,9 @@ function typewrite() {
 
 function init() {
 	var bgMusic = document.getElementById("bgMusic");
+	var asciiLayer = document.getElementById("ascii");
+
+	asciiLayer.innerText = asciiImages[3];
 
 	setTimeout("bgMusic.play()", 3000);
 
@@ -183,28 +389,7 @@ window.onload = init;
 
 	<div id="main_scroll"></div>
 
-<div class="ascii">
-	              .,-:;//;:=,
-	          . :H@@@MM@M#H/.,+%;,
-	       ,/X+ +M@@M@MM%=,-%HMMM@X/,
-	     -+@MM; $M@@MH+-,;XMMMM@MMMM@+-
-	    ;@M@@M- XM@X;. -+XXXXXHHH@M@M#@/.
-	  ,%MM@@MH ,@%=            .---=-=:=,.
-	  =@#@@@MX .,              -%HX$$%%%+;
-	 =-./@M@M$                  .;@MMMM@MM:
-	 X@/ -$MM/                    .+MM@@@M$
-	,@M@H: :@:                    . =X#@@@@-
-	,@@@MMX, .                    /H- ;@M@M=
-	.H@@@@M@+,                    %MM+..%#$.
-	 /MMMM@MMH/.                  XM@MH; =;
-	  /%+%$XHH@$=              , .H@@@@MX,
-	   .=--------.           -%H.,@@@@@MX,
-	   .%MM@@@HHHXX$$$%+- .:$MMX =M@@MM%.
-	     =XMMM@MM@MM#H;,-+HMM@M+ /MMMX=
-	       =%@M@M#@$-.=$@MM@@@M; %M%=
-	         ,:+$+-,/H#MMMMMMM@= =,
-	               =++%%%%+/:-.
-</div>
+	<div id="ascii"></div>
  </body>
 
 </html>
